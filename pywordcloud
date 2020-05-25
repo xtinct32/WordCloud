@@ -1,0 +1,34 @@
+pip install wordcloud
+
+pip install newspaper
+
+import numpy as np
+from PIL import Image
+
+from newspaper import Article
+from wordcloud import STOPWORDS
+
+article = Article('https://en.wikipedia.org/wiki/Ice_cream')
+article.download()
+article.parse()
+
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+plt.rcParams["figure.figsize"] = (20,10)
+
+
+wc = WordCloud()
+wc.generate(article.text)
+plt.imshow(wc, interpolation="bilinear")
+plt.axis('off')
+plt.show()
+
+
+wc = WordCloud(background_color="white", max_words=500,
+               stopwords=STOPWORDS, max_font_size=256,
+               random_state=42)
+wc.generate(article.text)
+plt.imshow(wc, interpolation="bilinear")
+plt.axis('off')
+plt.show()
+
